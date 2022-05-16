@@ -17,6 +17,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.TextUnit
 import dev.sebastiano.customthemeplayground.ui.theme.LocalContentAlpha
 import dev.sebastiano.customthemeplayground.ui.theme.LocalPalette
+import dev.sebastiano.customthemeplayground.ui.theme.LocalTextStyle
 
 @Composable
 fun Text(
@@ -31,7 +32,7 @@ fun Text(
     textDecoration: TextDecoration? = null,
     textAlign: TextAlign? = null,
     lineHeight: TextUnit = TextUnit.Unspecified,
-    style: TextStyle = TextStyle.Default,
+    style: TextStyle = LocalTextStyle.current,
     overflow: TextOverflow = TextOverflow.Clip,
     softWrap: Boolean = true,
     maxLines: Int = Int.MAX_VALUE,
