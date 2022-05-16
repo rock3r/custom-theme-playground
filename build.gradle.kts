@@ -1,5 +1,5 @@
 buildscript {
-    val composeUiVersion by extra("1.1.1")
+    val composeUiVersion by extra("1.2.0-beta01")
 }
 
 plugins {

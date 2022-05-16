@@ -12,6 +12,8 @@ import androidx.compose.ui.unit.sp
 
 val LocalPalette = compositionLocalOf { LightColorPalette }
 
+val LocalContentAlpha = compositionLocalOf { 1f }
+
 private val DarkColorPalette = darkColors()
 
 private val LightColorPalette = lightColors()
