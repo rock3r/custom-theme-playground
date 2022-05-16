@@ -48,4 +48,5 @@ dependencies {
     implementation("androidx.compose.ui:ui:$composeUiVersion")
     implementation("androidx.compose.foundation:foundation:$composeUiVersion")
     implementation("androidx.compose.ui:ui-tooling-preview:$composeUiVersion")
+    debugImplementation("androidx.compose.ui:ui-tooling:$composeUiVersion")
 }
