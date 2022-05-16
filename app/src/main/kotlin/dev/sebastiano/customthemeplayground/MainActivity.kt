@@ -43,11 +43,6 @@ fun Greeting(
             text = "Hello $name!",
             modifier = modifier.background(MyTheme.colors.control)
         )
-        Box(
-            Modifier
-                .background(Color.Red)
-                .size(48.dp)
-        )
     }
 }
 
