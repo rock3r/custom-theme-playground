@@ -1,5 +1,6 @@
 package dev.sebastiano.customthemeplayground.ui.theme
 
+import androidx.compose.foundation.LocalIndication
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
@@ -14,15 +15,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import dev.sebastiano.customthemeplayground.R
 
-val LocalPalette = compositionLocalOf { LightColorPalette }
-
 val LocalContentAlpha = compositionLocalOf { 1f }
 
 val LocalTextStyle = compositionLocalOf(structuralEqualityPolicy()) { TextStyle.Default }
-
-private val DarkColorPalette = darkColors()
-
-private val LightColorPalette = lightColors()
 
 val LocalTypography = compositionLocalOf { MyTypography }
 
@@ -69,7 +64,8 @@ fun MyDesignSystemTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Co
     CompositionLocalProvider(
         LocalPalette provides colors,
         LocalTypography provides MyTypography,
-        LocalTextStyle provides MyTypography.body
+        LocalTextStyle provides MyTypography.body,
+        LocalIndication provides MyIndication
     ) {
         content()
     }
@@ -86,4 +82,9 @@ object MyTheme {
         @Composable
         @ReadOnlyComposable
         get() = LocalTypography.current
+
+    val metrics: Metrics
+        @Composable
+        @ReadOnlyComposable
+        get() = LocalMetrics.current
 }
