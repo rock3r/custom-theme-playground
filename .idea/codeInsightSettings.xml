@@ -10,6 +10,7 @@
       <name>android.text.layout.Alignment</name>
       <name>android.view.RoundedCorner</name>
       <name>android.view.Surface</name>
+      <name>android.widget.*</name>
       <name>android.widget.GridLayout.Alignment</name>
       <name>androidx.compose.material.*</name>
       <name>java.lang.reflect.Modifier</name>
