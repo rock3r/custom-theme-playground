@@ -2,6 +2,7 @@
 <resources>
 
     <style name="Theme.CustomThemePlayground" parent="android:Theme.Material.Light.NoActionBar">
+        <item name="android:windowBackground">@color/windowBackground</item>
         <item name="android:statusBarColor">@color/purple_700</item>
     </style>
 </resources>

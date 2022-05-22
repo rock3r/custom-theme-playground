@@ -40,12 +40,18 @@ fun blueThemeColors(darkTheme: Boolean) = if (darkTheme) {
 }
 
 private fun darkColors(
-    windowBackground: Color = Color(0xFF152021),
-    foreground: Color = Color(0xFFF2F7FA),
-    accent: Color = Color(0xFF55C9F4),
+    windowBackground: Color = Color.Unspecified,
+    foreground: Color = Color.Unspecified,
+    accent: Color = Color.Unspecified,
     indication: IndicationColors = indicationColors(darkTheme = true),
     button: ButtonColors = buttonColors(darkTheme = true)
-) = Colors(windowBackground, foreground, accent, indication, button)
+) = Colors(
+    windowBackground.takeOrElse { Color(0xFF152021) },
+    foreground.takeOrElse { Color(0xFFF2F7FA) },
+    accent.takeOrElse { Color(0xFF55C9F4) },
+    indication,
+    button
+)
 
 private fun lightColors(
     windowBackground: Color = Color.Unspecified,

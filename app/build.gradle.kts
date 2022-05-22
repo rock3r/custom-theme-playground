@@ -45,6 +45,7 @@ dependencies {
     implementation("androidx.core:core-ktx:1.8.0-rc01")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.5.0-rc01")
     implementation("androidx.activity:activity-compose:1.5.0-rc01")
+    implementation("com.google.accompanist:accompanist-systemuicontroller:0.24.9-beta")
     implementation("androidx.compose.ui:ui:$composeUiVersion")
     implementation("androidx.compose.foundation:foundation:$composeUiVersion")
     implementation("androidx.compose.ui:ui-tooling-preview:$composeUiVersion")
