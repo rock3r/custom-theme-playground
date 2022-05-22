@@ -51,3 +51,7 @@ dependencies {
     implementation("androidx.compose.ui:ui-tooling-preview:$composeUiVersion")
     debugImplementation("androidx.compose.ui:ui-tooling:$composeUiVersion")
 }
+
+configurations.all {
+    exclude(group = "androidx.compose.material")
+}
