@@ -49,7 +49,7 @@ class MainActivity : ComponentActivity() {
                         .safeDrawingPadding()
                         .background(MyTheme.colors.windowBackground)
                 ) {
-                    Greeting(Modifier.align(Alignment.Center))
+                    MyContent(Modifier.align(Alignment.Center))
                 }
             }
         }
@@ -57,7 +57,7 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun Greeting(
+fun MyContent(
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -79,6 +79,6 @@ fun Greeting(
 @Composable
 fun DefaultPreview() {
     MyDesignSystemTheme {
-        Greeting(Modifier.background(MyTheme.colors.windowBackground))
+        MyContent(Modifier.background(MyTheme.colors.windowBackground))
     }
 }
