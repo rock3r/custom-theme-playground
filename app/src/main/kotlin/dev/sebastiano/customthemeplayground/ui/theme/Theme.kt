@@ -48,8 +48,9 @@ private val MyTypography = Typography(
     ),
     button = TextStyle(
         fontFamily = nunito,
-        fontWeight = FontWeight.W500,
-        fontSize = 14.sp
+        fontWeight = FontWeight.W800,
+        fontSize = 18.sp,
+        letterSpacing = 1.sp,
     ),
 )
 
@@ -87,4 +88,10 @@ object MyTheme {
         @Composable
         @ReadOnlyComposable
         get() = LocalMetrics.current
+}
+
+@Composable
+fun ProvideTextStyle(value: TextStyle, content: @Composable () -> Unit) {
+    val mergedStyle = LocalTextStyle.current.merge(value)
+    CompositionLocalProvider(LocalTextStyle provides mergedStyle, content = content)
 }

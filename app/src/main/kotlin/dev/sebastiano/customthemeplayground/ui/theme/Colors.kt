@@ -1,48 +1,65 @@
 package dev.sebastiano.customthemeplayground.ui.theme
 
+import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.takeOrElse
+import dev.sebastiano.customthemeplayground.widgets.ButtonColors
+import dev.sebastiano.customthemeplayground.widgets.buttonColors
 
 @Immutable
 data class Colors(
     val windowBackground: Color,
     val foreground: Color,
     val accent: Color,
-    val control: Color,
     val indication: IndicationColors,
-) {
+    val button: ButtonColors
+)
 
-    data class IndicationColors(
-        val pressed: Color,
-        val hovered: Color,
-        val focused: Color,
+@Composable
+fun blueThemeColors() = blueThemeColors(isSystemInDarkTheme())
+
+fun blueThemeColors(darkTheme: Boolean) = if (darkTheme) {
+    darkColors(
+        button = buttonColors(
+            darkTheme = true,
+            background = Color(0xFF2ABAF0),
+            lip = Color(0xFF24A3D3)
+        )
+    )
+} else {
+    lightColors(
+        button = buttonColors(
+            darkTheme = false,
+            background = Color(0xFF55C9F4),
+            lip = Color(0xFF24A3D3)
+        )
     )
 }
 
 private fun darkColors(
-    windowBackground: Color = Color(0xFF4B4B4B),
-    foreground: Color = Color(0xFFFFFFFF),
-    accent: Color = Color(0xFF2E6803),
-    control: Color = Color(0xFF487510),
-    indication: Colors.IndicationColors = Colors.IndicationColors(
-        pressed = Color(0x410AA056),
-        hovered = Color(0x210AA056),
-        focused = Color(0x660C874A),
-    ),
-) = Colors(windowBackground, foreground, accent, control, indication)
+    windowBackground: Color = Color(0xFF152021),
+    foreground: Color = Color(0xFFF2F7FA),
+    accent: Color = Color(0xFF55C9F4),
+    indication: IndicationColors = indicationColors(darkTheme = true),
+    button: ButtonColors = buttonColors(darkTheme = true)
+) = Colors(windowBackground, foreground, accent, indication, button)
 
 private fun lightColors(
-    windowBackground: Color = Color(0xFFFFFFFF),
-    foreground: Color = Color(0xFF4B4B4B),
-    accent: Color = Color(0xFF58CC02),
-    control: Color = Color(0xFF89e219),
-    indication: Colors.IndicationColors = Colors.IndicationColors(
-        pressed = Color(0x410C6338),
-        hovered = Color(0x21028D48),
-        focused = Color(0x66078949),
-    ),
-) = Colors(windowBackground, foreground, accent, control, indication)
+    windowBackground: Color = Color.Unspecified,
+    foreground: Color = Color.Unspecified,
+    accent: Color = Color.Unspecified,
+    indication: IndicationColors = indicationColors(darkTheme = false),
+    button: ButtonColors = buttonColors(darkTheme = false)
+) = Colors(
+    windowBackground.takeOrElse { Color(0xFFFFFFFF) },
+    foreground.takeOrElse { Color(0xFF4B4B4B) },
+    accent.takeOrElse { Color(0xFF58CC02) },
+    indication,
+    button
+)
 
 val LocalPalette = compositionLocalOf { LightColorPalette }
 
