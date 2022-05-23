@@ -70,11 +70,12 @@ fun Button(
             )
             .drawBehind {
                 val lipSizePx = metrics.button.lipSize.toPx()
+                val cornerRadiusPx = cornerRadius.toPx()
                 drawRoundRect(
                     color = lipColor,
                     topLeft = Offset(0f, lipSizePx),
                     size = Size(size.width, size.height - lipSizePx),
-                    cornerRadius = CornerRadius(cornerRadius.toPx(), cornerRadius.toPx())
+                    cornerRadius = CornerRadius(cornerRadiusPx, cornerRadiusPx)
                 )
             }
             .padding(top = topPadding, bottom = lipSize),

@@ -7,7 +7,9 @@ import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.takeOrElse
 import dev.sebastiano.customthemeplayground.widgets.ButtonColors
+import dev.sebastiano.customthemeplayground.widgets.ProgressBarColors
 import dev.sebastiano.customthemeplayground.widgets.buttonColors
+import dev.sebastiano.customthemeplayground.widgets.progressBarColors
 
 @Immutable
 data class Colors(
@@ -15,7 +17,8 @@ data class Colors(
     val foreground: Color,
     val accent: Color,
     val indication: IndicationColors,
-    val button: ButtonColors
+    val button: ButtonColors,
+    val progressBar: ProgressBarColors,
 )
 
 @Composable
@@ -44,13 +47,15 @@ private fun darkColors(
     foreground: Color = Color.Unspecified,
     accent: Color = Color.Unspecified,
     indication: IndicationColors = indicationColors(darkTheme = true),
-    button: ButtonColors = buttonColors(darkTheme = true)
+    button: ButtonColors = buttonColors(darkTheme = true),
+    progressBar: ProgressBarColors = progressBarColors(darkTheme = true),
 ) = Colors(
     windowBackground.takeOrElse { Color(0xFF152021) },
     foreground.takeOrElse { Color(0xFFF2F7FA) },
     accent.takeOrElse { Color(0xFF55C9F4) },
     indication,
-    button
+    button,
+    progressBar
 )
 
 private fun lightColors(
@@ -58,13 +63,15 @@ private fun lightColors(
     foreground: Color = Color.Unspecified,
     accent: Color = Color.Unspecified,
     indication: IndicationColors = indicationColors(darkTheme = false),
-    button: ButtonColors = buttonColors(darkTheme = false)
+    button: ButtonColors = buttonColors(darkTheme = false),
+    progressBar: ProgressBarColors = progressBarColors(darkTheme = false),
 ) = Colors(
     windowBackground.takeOrElse { Color(0xFFFFFFFF) },
     foreground.takeOrElse { Color(0xFF4B4B4B) },
     accent.takeOrElse { Color(0xFF58CC02) },
     indication,
-    button
+    button,
+    progressBar
 )
 
 val LocalPalette = compositionLocalOf { LightColorPalette }

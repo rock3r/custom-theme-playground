@@ -2,6 +2,7 @@ package dev.sebastiano.customthemeplayground
 
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
@@ -12,10 +13,15 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -26,6 +32,7 @@ import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import dev.sebastiano.customthemeplayground.ui.theme.MyDesignSystemTheme
 import dev.sebastiano.customthemeplayground.ui.theme.MyTheme
 import dev.sebastiano.customthemeplayground.widgets.Button
+import dev.sebastiano.customthemeplayground.widgets.ProgressBar
 import dev.sebastiano.customthemeplayground.widgets.Text
 
 class MainActivity : ComponentActivity() {
@@ -58,7 +65,7 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun MyContent(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Column(
         modifier = modifier.padding(16.dp),
@@ -67,9 +74,18 @@ fun MyContent(
 
         Text(text = "I am some fancy text from Duolingo")
 
+        var progress by remember { mutableStateOf(0f) }
+        ProgressBar(progress,
+            Modifier
+                .fillMaxWidth()
+                .height(16.dp))
+
         Spacer(modifier = Modifier.weight(1f))
 
-        Button(onClick = {}, Modifier.fillMaxWidth()) {
+        Button(onClick = {
+            progress = if (progress < 1f) (progress + .1f).coerceAtMost(1f) else 0f
+            Log.e("Progress", progress.toString())
+        }, Modifier.fillMaxWidth()) {
             Text(text = "Hello, button!")
         }
     }
