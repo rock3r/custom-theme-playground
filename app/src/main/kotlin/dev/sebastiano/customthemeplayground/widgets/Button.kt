@@ -33,7 +33,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.takeOrElse
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import dev.sebastiano.customthemeplayground.ui.theme.LocalPalette
 import dev.sebastiano.customthemeplayground.ui.theme.MyDesignSystemTheme
 import dev.sebastiano.customthemeplayground.ui.theme.MyTheme
@@ -46,7 +45,7 @@ fun Button(
     enabled: Boolean = true,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     colors: ButtonColors = unspecifiedButtonColors,
-    contentPadding: PaddingValues = PaddingValues(horizontal = 16.dp, vertical = 8.dp),
+    contentPadding: PaddingValues = PaddingValues(horizontal = MyTheme.metrics.button.horizontalPadding),
     content: @Composable RowScope.() -> Unit
 ) {
     val buttonColors = colors.withDefaultsFrom(LocalPalette.current.button)
@@ -61,6 +60,7 @@ fun Button(
 
     Box(
         modifier = modifier
+            .defaultMinSize(minHeight = MyTheme.metrics.button.minHeight)
             .clickable(
                 enabled = enabled,
                 onClick = onClick,
@@ -88,10 +88,6 @@ fun Button(
             ProvideTextStyle(value = MyTheme.typography.button) {
                 Row(
                     Modifier
-                        .defaultMinSize(
-                            minWidth = MyTheme.metrics.button.minWidth,
-                            minHeight = MyTheme.metrics.button.minHeight
-                        )
                         .background(buttonColors.backgroundColor(enabled).value, shape)
                         .padding(contentPadding),
                     horizontalArrangement = Arrangement.Center,

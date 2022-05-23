@@ -49,8 +49,8 @@ private val MyTypography = Typography(
     button = TextStyle(
         fontFamily = nunito,
         fontWeight = FontWeight.W800,
-        fontSize = 18.sp,
-        letterSpacing = 1.sp,
+        fontSize = 17.sp,
+        letterSpacing = 0.8.sp,
     ),
 )
 

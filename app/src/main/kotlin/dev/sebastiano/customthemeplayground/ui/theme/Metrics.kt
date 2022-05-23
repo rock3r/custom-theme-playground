@@ -14,11 +14,11 @@ data class Metrics(
     data class IndicationMetrics(val strokeWidth: Dp = 4.dp)
 
     data class ButtonMetrics(
-        val cornerRadius: Dp = 12.dp,
+        val cornerRadius: Dp = 16.dp,
         val lipSize: Dp = 4.dp,
         val lipSizePressed: Dp = 0.dp,
-        val minWidth: Dp = 64.dp,
-        val minHeight: Dp = 24.dp
+        val horizontalPadding: Dp = 16.dp,
+        val minHeight: Dp = 52.dp
     )
 }
 
