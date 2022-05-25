@@ -29,8 +29,7 @@ data class Metrics(
     data class ChoiceButtonMetrics(
         val cornerRadius: Dp = 16.dp,
         val borderSize: Dp = 2.dp,
-        val lipSize: Dp = 4.dp,
-        val lipSizePressed: Dp = 0.dp,
+        val lipSize: Dp = borderSize * 2,
     )
 
     @Immutable

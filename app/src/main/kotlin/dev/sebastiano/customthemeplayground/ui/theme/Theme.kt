@@ -44,12 +44,19 @@ private val MyTypography = Typography(
     body = TextStyle(
         fontFamily = nunito,
         fontWeight = FontWeight.Normal,
-        fontSize = 16.sp
+        fontSize = 16.sp,
+        letterSpacing = 0.8.sp,
     ),
     button = TextStyle(
         fontFamily = nunito,
-        fontWeight = FontWeight.W800,
+        fontWeight = FontWeight.ExtraBold,
         fontSize = 17.sp,
+        letterSpacing = 0.8.sp,
+    ),
+    choiceButton = TextStyle(
+        fontFamily = nunito,
+        fontWeight = FontWeight.Normal,
+        fontSize = 16.sp,
         letterSpacing = 0.8.sp,
     ),
 )
