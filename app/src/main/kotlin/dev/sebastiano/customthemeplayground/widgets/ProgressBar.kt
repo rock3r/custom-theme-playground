@@ -20,6 +20,7 @@ import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.Stable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -45,10 +46,11 @@ fun ProgressBar(
     check(progress in 0f..1f) { "Progress must be in the [0f, 1f] range (inclusive)" }
     val baseCornerRadiusDp = MyTheme.metrics.progressBar.cornerRadius
     val highlightMarginDp = MyTheme.metrics.progressBar.highlightHorizontalMargin
-    val progressBounds = Bounds()
-    val highlightBounds = Bounds()
+    val progressBounds by remember { mutableStateOf(Bounds()) }
+    val highlightBounds by remember { mutableStateOf(Bounds()) }
 
     val animatedProgress by animateFloatAsState(targetValue = progress)
+    Log.e("!!!!", "progress: $progress, animated: $animatedProgress")
 
     Box(
         modifier = modifier
@@ -97,7 +99,6 @@ private fun DrawScope.updateProgressBounds(
         }
         return
     }
-    Log.e("Progress Calc", "Size: $size")
     val width = size.width
 
     val isLtr = layoutDirection == LayoutDirection.Ltr
@@ -107,7 +108,6 @@ private fun DrawScope.updateProgressBounds(
     progressBounds.apply {
         offset = Offset(barStart, 0f)
         size = Size(progressWidth, this@updateProgressBounds.size.height)
-        Log.e("Progress Calc", "Progress size: $size, pos: $offset")
     }
 }
 

@@ -10,6 +10,7 @@ data class Metrics(
     val indication: IndicationMetrics = IndicationMetrics(),
     val button: ButtonMetrics = ButtonMetrics(),
     val progressBar: ProgressBarMetrics = ProgressBarMetrics(),
+    val choiceButton: ChoiceButtonMetrics = ChoiceButtonMetrics(),
 ) {
 
     @Immutable
@@ -22,6 +23,14 @@ data class Metrics(
         val lipSizePressed: Dp = 0.dp,
         val horizontalPadding: Dp = 16.dp,
         val minHeight: Dp = 52.dp,
+    )
+
+    @Immutable
+    data class ChoiceButtonMetrics(
+        val cornerRadius: Dp = 16.dp,
+        val borderSize: Dp = 2.dp,
+        val lipSize: Dp = 4.dp,
+        val lipSizePressed: Dp = 0.dp,
     )
 
     @Immutable

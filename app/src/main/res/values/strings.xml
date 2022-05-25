@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Custom Theme Playground</string>
+    <string name="settings">Settings</string>
+    <string name="settings_content_description">Settings</string>
 </resources>
