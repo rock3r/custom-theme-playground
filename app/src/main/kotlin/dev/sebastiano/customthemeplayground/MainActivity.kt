@@ -2,7 +2,6 @@ package dev.sebastiano.customthemeplayground
 
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -14,6 +13,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -49,6 +49,7 @@ import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import dev.sebastiano.customthemeplayground.ui.theme.MyDesignSystemTheme
 import dev.sebastiano.customthemeplayground.ui.theme.MyTheme
 import dev.sebastiano.customthemeplayground.widgets.Button
+import dev.sebastiano.customthemeplayground.widgets.ChoiceButton
 import dev.sebastiano.customthemeplayground.widgets.ImageButton
 import dev.sebastiano.customthemeplayground.widgets.ProgressBar
 import dev.sebastiano.customthemeplayground.widgets.Text
@@ -93,16 +94,98 @@ fun MyContent(
 
         Spacer(Modifier.height(48.dp))
 
-        Text(text = "Select the correct characters for “かいぎ”", fontSize = 24.sp, fontWeight = FontWeight.ExtraBold)
-        Spacer(modifier = Modifier.weight(1f))
+        Text(text = "Select the correct characters for “まずしい”", fontSize = 24.sp, fontWeight = FontWeight.ExtraBold)
 
-        Button(onClick = {
-            progress = if (progress < 1f) (progress + .1f).coerceAtMost(1f) else 0f
-            Log.e("Progress", progress.toString())
-        }, Modifier.fillMaxWidth()) {
+        Spacer(Modifier.height(48.dp))
+
+        var currentChoice by remember { mutableStateOf<ChoiceItem>(ChoiceItem.None) }
+        Choices(
+            currentChoice = currentChoice,
+            choices = listOf("貧しい", "買しい", "貝しい", "給しい"),
+            onChoiceSelected = { currentChoice = it },
+            modifier = Modifier
+                .fillMaxWidth()
+                .weight(1f)
+        )
+
+        Spacer(Modifier.height(48.dp))
+
+        Button(
+            onClick = {
+                progress = (if (progress < 1f) (progress + .1f).coerceAtMost(1f) else 0f)
+                currentChoice = ChoiceItem.None
+            },
+            Modifier.fillMaxWidth(),
+            enabled = currentChoice !is ChoiceItem.None
+        ) {
             Text(text = "Hello, button!")
         }
     }
+}
+
+@Composable
+private fun Choices(
+    currentChoice: ChoiceItem,
+    choices: List<String>,
+    onChoiceSelected: (ChoiceItem.Position) -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    check(choices.size == 4) { "This composable only supports exactly 4 choices" }
+
+    val choiceIndex = (currentChoice as? ChoiceItem.Position)?.index ?: -1
+    Column(modifier = modifier, verticalArrangement = Arrangement.spacedBy(16.dp)) {
+        Row(Modifier
+            .fillMaxWidth()
+            .weight(1f), horizontalArrangement = Arrangement.spacedBy(16.dp)) {
+            ChoiceButton(
+                selected = choiceIndex == 0,
+                onClick = { onChoiceSelected(ChoiceItem.Position(0)) },
+                modifier = Modifier
+                    .weight(1f)
+                    .fillMaxHeight()
+            ) {
+                Text(text = choices[0], fontSize = 36.sp, fontWeight = FontWeight.Bold)
+            }
+            ChoiceButton(
+                selected = choiceIndex == 1,
+                onClick = { onChoiceSelected(ChoiceItem.Position(1)) },
+                modifier = Modifier
+                    .weight(1f)
+                    .fillMaxHeight()
+            ) {
+                Text(text = choices[1], fontSize = 36.sp, fontWeight = FontWeight.Bold)
+            }
+        }
+        Row(Modifier
+            .fillMaxWidth()
+            .weight(1f), horizontalArrangement = Arrangement.spacedBy(16.dp)) {
+            ChoiceButton(
+                selected = choiceIndex == 2,
+                onClick = { onChoiceSelected(ChoiceItem.Position(2)) },
+                modifier = Modifier
+                    .weight(1f)
+                    .fillMaxHeight()
+            ) {
+                Text(text = choices[2], fontSize = 36.sp, fontWeight = FontWeight.Bold)
+            }
+            ChoiceButton(
+                selected = choiceIndex == 3,
+                onClick = { onChoiceSelected(ChoiceItem.Position(3)) },
+                modifier = Modifier
+                    .weight(1f)
+                    .fillMaxHeight()
+            ) {
+                Text(text = choices[3], fontSize = 36.sp, fontWeight = FontWeight.Bold)
+            }
+        }
+    }
+}
+
+private sealed class ChoiceItem {
+
+    object None : ChoiceItem()
+
+    data class Position(val index: Int) : ChoiceItem()
 }
 
 @Composable
@@ -154,7 +237,7 @@ fun ImageWithText(
     }
 }
 
-@Preview(showBackground = true, uiMode = UI_MODE_NIGHT_YES)
+@Preview(name = "Main Activity", showBackground = true, uiMode = UI_MODE_NIGHT_YES)
 @Composable
 fun DefaultPreview() {
     MyDesignSystemTheme {
