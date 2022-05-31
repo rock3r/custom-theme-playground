@@ -1,14 +1,13 @@
 package dev.sebastiano.customthemeplayground.widgets
 
 import android.content.res.Configuration
-import android.util.Log
 import androidx.annotation.FloatRange
 import androidx.annotation.Px
 import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -24,7 +23,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.drawWithContent
 import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
@@ -50,41 +48,38 @@ fun ProgressBar(
     val highlightBounds by remember { mutableStateOf(Bounds()) }
 
     val animatedProgress by animateFloatAsState(targetValue = progress)
-    Log.e("!!!!", "progress: $progress, animated: $animatedProgress")
 
-    Box(
+    Canvas(
         modifier = modifier
             .progressSemantics(progress)
             .clip(RoundedCornerShape(baseCornerRadiusDp))
-            .defaultMinSize(minHeight = MyTheme.metrics.progressBar.minHeight)
-            .drawWithContent {
-                @Px val baseCornerRadiusPx = baseCornerRadiusDp.toPx()
+            .defaultMinSize(minHeight = MyTheme.metrics.progressBar.minHeight),
+    ) {
+        @Px val baseCornerRadiusPx = baseCornerRadiusDp.toPx()
 
-                // Track
-                drawRect(color = colors.track)
+        // Track
+        drawRect(color = colors.track)
 
-                // Progress
-                updateProgressBounds(animatedProgress, baseCornerRadiusPx, progressBounds)
-                drawRoundRect(
-                    color = colors.bar,
-                    topLeft = progressBounds.offset,
-                    size = progressBounds.size,
-                    cornerRadius = CornerRadius(baseCornerRadiusPx, baseCornerRadiusPx)
-                )
+        // Progress
+        updateProgressBounds(animatedProgress, baseCornerRadiusPx, progressBounds)
+        drawRoundRect(
+            color = colors.bar,
+            topLeft = progressBounds.offset,
+            size = progressBounds.size,
+            cornerRadius = CornerRadius(baseCornerRadiusPx, baseCornerRadiusPx)
+        )
 
-                // Progress highlight
-                @Px val highlightCornerRadiusPx = size.height * 3 / 20
-                @Px val highlightHorizontalMarginPx = highlightMarginDp.toPx()
-                updateHighlightBounds(progressBounds, baseCornerRadiusPx, highlightCornerRadiusPx, highlightHorizontalMarginPx, highlightBounds)
-                drawRoundRect(
-                    color = colors.barHighlight,
-                    topLeft = highlightBounds.offset,
-                    size = highlightBounds.size,
-                    cornerRadius = CornerRadius(highlightCornerRadiusPx, highlightCornerRadiusPx)
-                )
-            }
-
-    )
+        // Progress highlight
+        @Px val highlightCornerRadiusPx = size.height * 3 / 20
+        @Px val highlightHorizontalMarginPx = highlightMarginDp.toPx()
+        updateHighlightBounds(progressBounds, baseCornerRadiusPx, highlightCornerRadiusPx, highlightHorizontalMarginPx, highlightBounds)
+        drawRoundRect(
+            color = colors.barHighlight,
+            topLeft = highlightBounds.offset,
+            size = highlightBounds.size,
+            cornerRadius = CornerRadius(highlightCornerRadiusPx, highlightCornerRadiusPx)
+        )
+    }
 }
 
 private fun DrawScope.updateProgressBounds(
