@@ -7,7 +7,7 @@ The sample code shows a number of techniques, some of which are derived from the
 This repository is a practical showcase of what's covered in my "Compose beyond Material" talk; you can find more information, including recordings,
 slides, and references, [on my website](https://go.sebastiano.dev/compose-material-2022).
 
-![A demo of the custom theme in action](art/theme-demo.gif)
+<img height=640 alt="A demo of the custom theme in action" src="art/theme-demo.gif" />
 
 ## Disclaimer
 
